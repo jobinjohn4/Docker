@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - joe-vol:/usr/share/nginx/html
+    networks:
+      - joe-net
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devops
+    ports:
+      - "3306:3306"
+    volumes:
+      - joe-vol:/var/lib/mysql
+    networks:
+      - joe-net
+volumes:
+  joe-vol:
+
+networks:
+  joe-net:
